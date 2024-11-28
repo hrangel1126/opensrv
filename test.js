@@ -1,4 +1,5 @@
-require('dotenv').config()
+export const maxDuration = 500;
+require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
