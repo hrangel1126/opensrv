@@ -14,10 +14,10 @@
     ],
     "functions": {
         "controllers/*.js": {
-          "maxDuration": 600
+          "maxDuration": 60
         },
         "middleware/**/*.js": {
-          "maxDuration": 600
+          "maxDuration": 60
         }
       }
   }
