@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const multer = require('multer');
+const path = require('path');
 const pdfParse = require('pdf-parse');
 const OpenAI = require("openai");
 const openai = new OpenAI({
@@ -12,7 +13,12 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-const upload = multer({ dest: 'uploads/' });
+
+    const destino = path.join(process.cwd(), 'tmp');
+    // const upload = multer({ dest: 'uploads/' });
+    const upload = multer({ dest: destino });
+
+    // const elpedf = multer({ storage });
 
 let pdfContent = '';
 
@@ -37,54 +43,6 @@ app.get('/wea', async (req, res) =>{
   }
 
 });
-app.post('/upload', upload.single('pdf'), async (req, res) => {
-    try {
-    //   const pdfBuffer = req.file.stream
-    //   const pdfData = await pdfParse(pdfBuffer);
-      const vectorStore = await openai.beta.vectorStores.create({ name: req.file.filename,
-          expires_after: { anchor: 'last_active_at', days: 1 }    // Expires 1 days after last use
-  
-       });
-       const files = req.file.stream;
-      console.log('vectorStoreId', vectorStore.id);
-      await openai.beta.vectorStores.file.upload(vectorStore.id, { files });
-      const assistant = await openai.beta.assistants.create({
-          name: 'contract Master',
-          instructions: "You are a helpful contract checker lawyer support assistant and you answer questions based on the files provided to you.",
-          model: 'gpt-4',
-          tools: [{ type: 'file_search' }], // retrieval -> file_search
-          tool_resources: { // Instead of file_id, add the Vector Store's ID
-            file_search: {
-              vector_store_ids: [vectorStore.id] // ID of the created Vector Store
-            }
-          },
-        });
-        const response = await openai.chat.completions.create({
-            model: "gpt-4o",
-            
-            messages: [
-                { role: "system", content: "You are a lawyer support assistant" },
-                {
-                    role: "user",
-                    content: "from the contract in PDF tell me the names of parties intrested and role, dates important and penlaties",
-                },
-            ],
-            tools: [{ type: 'file_search' }], // retrieval -> file_search
-            tool_resources: { // Instead of file_id, add the Vector Store's ID
-              file_search: {
-                vector_store_ids: [vectorStore.id] // ID of the created Vector Store
-              }
-            },
-        })
-     
-        console.log(response.data.choices[0].message);
-        res.json({ text: response.choices[0].message });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Failed to process PDF');
-    }
-  });
-
   app.post('/pdf', upload.single('pdf'), async (req, res) => {
     try {
       const file = req.file;
