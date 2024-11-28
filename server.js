@@ -12,6 +12,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+let tempraryImageDirectory;
+if (process.env.DEV && process.env.DEV === 'Yes') {
+  tempraryImageDirectory = path.join(__dirname, `../../tmp/`);
+} else {
+  tempraryImageDirectory = '/tmp/';
+}
+
 app.get('/weather', async (req, res) =>{
     try{
         const response = await openai.chat.completions.create({

@@ -15,7 +15,13 @@ app.use(cors());
 app.use(express.json());
 
     // const destino = path.join(process.cwd(), 'tmp');
-    const destino = path.join(process.cwd(), 'tmp');
+    // const destino = path.join(process.cwd(), 'tmp');
+    let destino = '';
+    if (process.env.DEV && process.env.DEV === 'Yes') {
+        destino = path.join(__dirname, `../../tmp/`);
+      } else {
+        destino = '/tmp/';
+      }
     // const upload = multer({ dest: 'uploads/' });
     const upload = multer({ dest: destino });
 
