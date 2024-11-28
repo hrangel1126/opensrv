@@ -1,0 +1,33 @@
+{
+  "name": "serverai",
+  "version": "1.0.0",
+  "description": "First openai server POC",
+  "main": "f.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrangel1126/opensrv.git"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "Hebert Rangel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hrangel1126/opensrv/issues"
+  },
+  "homepage": "https://github.com/hrangel1126/opensrv#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "envfile": "^7.1.0",
+    "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^4.73.1",
+    "pdf-parse": "^1.1.1"
+  }
+}
