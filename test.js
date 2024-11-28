@@ -51,6 +51,7 @@ app.get('/wea', async (req, res) =>{
 
 });
   app.post('/pdf', upload.single('pdf'), async (req, res) => {
+    console.log('funning');
     try {
       const file = req.file;
   
