@@ -2,7 +2,7 @@
   "name": "serverai",
   "version": "1.0.0",
   "description": "First openai server POC",
-  "main": "f.js",
+  "main": "test.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

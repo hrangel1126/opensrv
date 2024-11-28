@@ -14,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+    // const destino = path.join(process.cwd(), 'tmp');
     const destino = path.join(process.cwd(), 'tmp');
     // const upload = multer({ dest: 'uploads/' });
     const upload = multer({ dest: destino });
