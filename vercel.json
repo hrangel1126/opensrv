@@ -11,13 +11,5 @@
         "src": "/(.*)",
         "dest": "server.js"
       }
-    ],
-    "functions": {
-        "controllers/*.js": {
-          "maxDuration": 60
-        },
-        "middleware/**/*.js": {
-          "maxDuration": 60
-        }
-      }
+    ]
   }
